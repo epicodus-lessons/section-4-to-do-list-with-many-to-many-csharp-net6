@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+}
+
+@using ToDoList.Models
+@model ToDoList.Models.Tag
+
+<h2>Tag Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This tag does not belong to any items</p>
+}
+else
+{
+  <h4>Items the tag belongs to:</h4>
+  <ul>
+  @foreach(ItemTag join in Model.JoinEntities)
+  {
+    <li>@join.Item.Description</li>
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Add an Item", "AddItem", new { id = Model.TagId })</p>
